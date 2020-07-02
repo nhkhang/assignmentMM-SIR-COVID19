@@ -1,0 +1,41 @@
+SIR
+Neu gia thiet
+He so tiep xuc p
+R so nguoi phuc hoi: so nguoi bi benh x xac suat phuc hoi
+1. alpha, beta ko doi
+pp xap xi 
+
+ket qua la mot bang giong trong file de
+
+3. xet alpha, beta thay doi theo thoi gian dua vao chinh sach cach ly
+-> uoc luong
+-> bayes
+xac suat tien nghiem va hau nghiem: truoc va sau dich -> phan phoi khac nhau
+
+Gia su xac suat tien nghiem co phan phoi Gaussian, tap trung vao thoi diem nao trong nam
+voi ti le tiep xuc do -> kha nang mac covid19 la bao nhieu
+gamma(b, a) : tien nghiem, truoc khi covid19
+gamma(X | b,a) : ti le mac covid19 voi alpha beta truoc dich
+gamma(b,a | X) : alpha beta sau khi co covid19
+vd: 1 ngay 100 ng, thi ti le mac benh covid19 la bao nhieu
+gia su roi nhan lai
+
+R > 1 : se co them dich
+E(R) -> tinh xap xi -> phu thuoc vao phan bo xac suat cua alpha beta
+4. viet chuong trinh dua vao cau 3
+viet chuong trinh lay mau dung theo phan bo xac suat cua alpha beta dua tren thuat toan cho truoc
+neu dung ML model -> phai thiet ke duoc loss function -> tham khao loss function tren paper
+
+chay thu tren dataset va ket luan xem co bung phat hay khong
+
+1. Trinh bay lai mo hinh
+2. Viet chuong trinh theo thuat toan oiler
+3. Uoc luong alpha beta va ket luan ...
+lay mau
+ Dung cau 3, ap dung thuc te tren du lieu that
+4. Phan tich chinh sach 
+
+
+Bai thi: phan dynamical system tap trung vao SIR
+ 
+
