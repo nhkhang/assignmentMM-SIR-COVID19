@@ -1,0 +1,14 @@
+Giải thích 3 phương trình vi phân (sự thay đổi của ba nhóm người nhiễm bệnh/nguy cơ/hồi phục)
+S: số người có nguy cơ nhiễm bệnh
+I: số người nhiễm bệnh
+R: số người hồi phục
+β: tỉ lệ người nhiễm bệnh lây nhiễm thành công
+γ: tỉ lệ hồi phục của người nhiễm bệnh (1/D)
+N: tổng số người
+D: tổng số ngày người nhiễm bệnh có thể lây nhiễm (tương ứng với số ngày duy trì bệnh)
+R: số người mà người có nguy cơ nhiễm bệnh lây nhiễm thành công (R = D*β = β/γ )
+
+1. S(t)'
+Số người nguy cơ mắc bệnh (S) thay đổi theo thời gian bằng với số người mà người nhiễm bệnh (I) lây nhiễm thành công.
+S(t)' = - β * I(t) * S(t) / N
+Vì 
