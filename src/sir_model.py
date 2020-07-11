@@ -39,9 +39,9 @@ df = df.drop(columns=['Lat','Long', 'Province/State'])
 # df.plot()
 # plt.show()
 
-N = 700
+N = 1000
 beta = 1.0  # infected person infects 1 other person per day
-D = 3 # infections lasts four days
+D = 3 # infections lasts 3 days
 gamma = 1.0 / D
 
 S0, I0, R0 = 999, 1, 0  # initial conditions: one infected, rest susceptible
