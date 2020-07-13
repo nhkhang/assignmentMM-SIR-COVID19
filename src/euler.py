@@ -3,7 +3,7 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import pandas as pd
 
-N = 999
+N = 1000
 beta = 1.0
 D = 3.0
 gamma = 1.0 / D
@@ -44,12 +44,10 @@ def euler_cal(y0, N, beta, gamma, days):
 
 def main():
     res = euler_cal(y0, N, beta, gamma, days)
-    print(len(res))
-    print(len(res[0]))
     df = pd.DataFrame(res, columns=['Nguy cơ', 'Nhiễm bệnh', 'Phục hồi'])
     df.index.names =['Ngày']
     df.plot()
-    # plt.show()
+    plt.show()
     df.to_csv("euler.csv")
 
 if __name__ == "__main__":
