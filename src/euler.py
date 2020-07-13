@@ -46,8 +46,10 @@ def main():
     res = euler_cal(y0, N, beta, gamma, days)
     print(len(res))
     print(len(res[0]))
-    df = pd.DataFrame(res, columns=['Susceptible', 'Infected', 'Recovery'])
-    df.index.names =['Ngay']
+    df = pd.DataFrame(res, columns=['Nguy cơ', 'Nhiễm bệnh', 'Phục hồi'])
+    df.index.names =['Ngày']
+    df.plot()
+    plt.show()
     df.to_csv("euler.csv")
 
 if __name__ == "__main__":
