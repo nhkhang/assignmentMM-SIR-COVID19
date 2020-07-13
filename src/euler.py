@@ -49,7 +49,7 @@ def main():
     df = pd.DataFrame(res, columns=['Nguy cơ', 'Nhiễm bệnh', 'Phục hồi'])
     df.index.names =['Ngày']
     df.plot()
-    plt.show()
+    # plt.show()
     df.to_csv("euler.csv")
 
 if __name__ == "__main__":

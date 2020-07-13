@@ -29,7 +29,7 @@ neu dung ML model -> phai thiet ke duoc loss function -> tham khao loss function
 chay thu tren dataset va ket luan xem co bung phat hay khong
 
 1. Trinh bay lai mo hinh
-2. Viet chuong trinh theo thuat toan oiler
+2. Viet chuong trinh theo thuat toan euler
 3. Uoc luong alpha beta va ket luan ...
 lay mau
  Dung cau 3, ap dung thuc te tren du lieu that
