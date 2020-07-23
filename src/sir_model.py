@@ -57,3 +57,4 @@ data = {'Susceptible': S, 'Infected': I, 'Recovery': R}
 df_sir = pd.DataFrame(data,columns=['Susceptible', 'Infected', 'Recovery'])
 df_sir.index.names =['Ngay']
 df_sir.to_csv(cur_parrent_path/"res.csv")
+
