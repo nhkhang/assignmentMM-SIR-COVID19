@@ -38,7 +38,7 @@ def get_time_series_province(province):
   
 def get_dataframe(df):
     if len(df) > 1 and df.iloc[-2,0] >= df.iloc[-1,0]:
-      df.drop(df.tail(1).index,inplace=True)
+        df.drop(df.tail(1).index,inplace=True)
 
     susceptible = []
     for idx, row in df.iterrows():
@@ -63,9 +63,9 @@ r0 = 0 # E(r0)
 Xs = df.iloc[5:]['Confirmed']
 pi = 0
 for i in range(len(Xs)):
-  beta = samples[i][0]
-  gamma = samples[i][1]
-  X = Xs[i]
-  if gamma != 0:
-    pi = pow(gamma, beta) * pow(X, (beta-1)) * math.exp(-gamma*X) / math.gamma(beta)
-    r0 += pi * beta / gamma
+    beta = samples[i][0]
+    gamma = samples[i][1]
+    X = Xs[i]
+    if gamma != 0:
+        pi = pow(gamma, beta) * pow(X, (beta-1)) * math.exp(-gamma*X) / math.gamma(beta)
+        r0 += pi * beta / gamma
