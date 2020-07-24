@@ -21,7 +21,7 @@ def derive(y, N, beta, gamma):
     dRdt = gamma * I
     return dSdt, dIdt, dRdt
 
-def euler_approximate(y0, N, beta, gamma, weeks):
+def euler_approximate(y0, N, beta, gamma, weeks, delta_t):
     '''
     Approximate calculation using Euler method
     '''
@@ -33,14 +33,14 @@ def euler_approximate(y0, N, beta, gamma, weeks):
         S = y0[0]
         I = y0[1]
         R = y0[2]
-        dS, dI, dR = derive(y0, N, beta, gamma)
-        yi = [S+dS, I+dI, R+dR]
+        dSdt, dIdt, dRdt = derive(y0, N, beta, gamma)
+        yi = [S+dSdt*delta_t, I+dIdt*delta_t, R+dRdt*delta_t]
         ret.append(yi)
         y0 = yi
     return ret
     
 def main():
-    res = euler_approximate(y0, N, beta, gamma, weeks)
+    res = euler_approximate(y0, N, beta, gamma, weeks, 1)
     df = pd.DataFrame(res, columns=['Nguy cơ', 'Nhiễm bệnh', 'Phục hồi'])
     for index, row in df.iterrows():
         row['Nguy cơ'] = int(row['Nguy cơ']*10000)/10000

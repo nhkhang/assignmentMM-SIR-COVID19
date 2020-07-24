@@ -8,9 +8,9 @@ import math
 from mcmc import *
 
 # Prepare data
-confirmed_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
-recovered_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv'
-death_path     = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'
+confirmed_path = 'confirmed_global.csv'
+recovered_path = 'recovered_global.csv'
+death_path     = 'deaths_global.csv'
 
 confirmed_df = pd.read_csv(confirmed_path)
 recovered_df = pd.read_csv(recovered_path)
@@ -36,7 +36,7 @@ def get_time_series_province(province):
     df = full_table[(full_table['Province/State'] == province)]
     return df.set_index('Date')[['Confirmed', 'Deaths', 'Recovered']]
   
-def get_dataframe(df):
+def get_dataframe(df, N):
     if len(df) > 1 and df.iloc[-2,0] >= df.iloc[-1,0]:
         df.drop(df.tail(1).index,inplace=True)
 
@@ -47,32 +47,32 @@ def get_dataframe(df):
     df = df.assign(Susceptible = susceptible)
     return df
 
-def drop(df):
-    if len(df) > 1 and df.iloc[-2,0] >= df.iloc[-1,0]:
-      df.drop(df.tail(1).index,inplace=True)
-    return df
+def calculate_r0(df, samples):
+    '''
+    Calculate E(r0)
+    '''
+    r0 = 0
+    Xs = df.iloc[5:]['Confirmed']
+    pi = 0
+    for i in range(len(Xs)):
+        beta = samples[i][0]
+        gamma = samples[i][1]
+        X = Xs[i]
+        if gamma != 0:
+            pi = pow(gamma, beta) * pow(X, (beta-1)) * math.exp(-gamma*X) / math.gamma(beta)
+            r0 += pi * beta / gamma
+    return r0
 
 country = 'Germany'
-df = drop(get_time_series(country))
 N = 83020000 # Germany population
-betas = []
-gammas = []
+df = get_dataframe(get_time_series(country), N)
+
 pi_distribution = st.uniform
 init_sample = pi_distribution.rvs(loc=0, scale=1, size=2)
 mus = np.array([-0.1, 0.015])
 sigmas = np.array([[0.05,	-0.001], [-0.001,	0.001]])
-
 # Sampling beta and gamma
 samples = metropolis_hastings(pgauss, init_sample, sample_by_gauss , iter=1000, pi=pi_distribution.pdf, mus=mus, sigmas=sigmas) # samples of beta, gamma
-print(samples[-1])
-# Calculate E(r0)
-r0 = 0 # E(r0)
-Xs = df.iloc[5:]['Confirmed']
-pi = 0
-for i in range(len(Xs)):
-    beta = round(samples[i][0], 2)
-    gamma = round(samples[i][1],2)
-    X = Xs[i]
-    if gamma*beta != 0:
-        pi = pow(gamma, beta) * pow(X, (beta-1)) * math.exp(-gamma*X) / math.gamma(beta)
-        r0 += pi * beta / gamma
+r0 = calculate_r0(df, samples)
+print(r0)
+

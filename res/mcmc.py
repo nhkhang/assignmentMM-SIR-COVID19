@@ -34,6 +34,12 @@ def metropolis_hastings(p, init, sample_func, iter, pi, mus, sigmas):
         samples[i] = np.array([x, y])
     return samples
 
-pi_distribution = st.uniform
-init_sample = pi_distribution.rvs(loc=0, scale=1, size=2)
-samples = metropolis_hastings(pgauss, init_sample, sample_by_gauss , iter=1000, pi=pi_distribution.pdf, mus=[0,0], sigmas=[[1, 0],  [0, 1]]) # samples of beta, gamma
+def main():
+    pi_distribution = st.uniform
+    init_sample = pi_distribution.rvs(loc=0, scale=1, size=2)
+    mus = np.array([-0.1, 0.015])
+    sigmas = np.array([[0.05,	-0.001], [-0.001,	0.001]])
+    samples = metropolis_hastings(pgauss, init_sample, sample_by_gauss , iter=1000, pi=pi_distribution.pdf, mus=[0,0], sigmas=[[1, 0],  [0, 1]]) # samples of beta, gamma
+
+if __name__ == "__main__":
+    main()
