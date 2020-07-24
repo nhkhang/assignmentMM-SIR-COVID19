@@ -47,6 +47,11 @@ def get_dataframe(df):
     df = df.assign(Susceptible = susceptible)
     return df
 
+def drop(df):
+    if len(df) > 1 and df.iloc[-2,0] >= df.iloc[-1,0]:
+      df.drop(df.tail(1).index,inplace=True)
+    return df
+
 country = 'Germany'
 df = drop(get_time_series(country))
 N = 83020000 # Germany population
@@ -54,18 +59,20 @@ betas = []
 gammas = []
 pi_distribution = st.uniform
 init_sample = pi_distribution.rvs(loc=0, scale=1, size=2)
+mus = np.array([-0.1, 0.015])
+sigmas = np.array([[0.05,	-0.001], [-0.001,	0.001]])
 
 # Sampling beta and gamma
-samples = metropolis_hastings(pgauss, init_sample, sample_by_gauss , iter=1000, pi=pi_distribution.pdf) # samples of beta, gamma
-
+samples = metropolis_hastings(pgauss, init_sample, sample_by_gauss , iter=1000, pi=pi_distribution.pdf, mus=mus, sigmas=sigmas) # samples of beta, gamma
+print(samples[-1])
 # Calculate E(r0)
 r0 = 0 # E(r0)
 Xs = df.iloc[5:]['Confirmed']
 pi = 0
 for i in range(len(Xs)):
-    beta = samples[i][0]
-    gamma = samples[i][1]
+    beta = round(samples[i][0], 2)
+    gamma = round(samples[i][1],2)
     X = Xs[i]
-    if gamma != 0:
+    if gamma*beta != 0:
         pi = pow(gamma, beta) * pow(X, (beta-1)) * math.exp(-gamma*X) / math.gamma(beta)
         r0 += pi * beta / gamma
